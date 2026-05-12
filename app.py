@@ -137,7 +137,7 @@ def chat(chatbot_id):
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
-                "HTTP-Referer": "http://localhost:5000",
+                "HTTP-Referer": os.environ.get("APP_URL", "http://localhost:5000"),
                 "X-Title": "Web Scraper Chatbot Builder"
             },
             json={
@@ -181,5 +181,8 @@ def list_chatbots():
 
 
 if __name__ == "__main__":
-    print("🚀 Web Scraper Chatbot Builder running at http://localhost:5000")
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    PORT = int(os.environ.get("PORT", 5000))
+
+    print(f"🚀 Web Scraper Chatbot Builder running on port {PORT}")
+
+    app.run(debug=False, host="0.0.0.0", port=PORT)

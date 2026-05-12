@@ -141,7 +141,7 @@ Write ONLY the system prompt, nothing else. Start with "You are [Name]..."
                 headers={
                     "Authorization": f"Bearer {self.api_key}",
                     "Content-Type": "application/json",
-                    "HTTP-Referer": "http://localhost:5000",
+                    "HTTP-Referer": os.environ.get("APP_URL", "http://localhost:5000"),
                     "X-Title": "Web Scraper Chatbot Builder"
                 },
                 json={
@@ -537,7 +537,7 @@ Always aim to help the visitor find what they need or connect with our team."""
   </div>
   
   <div class="powered-by">
-    Chatbot created by <a href="http://localhost:5000" target="_blank">Web Scraper Chatbot Builder</a>
+   Chatbot created by <a href="{os.environ.get('APP_URL', 'http://localhost:5000')}" target="_blank">Web Scraper Chatbot Builder</a>
   </div>
 </div>
 
@@ -679,14 +679,14 @@ init();
  * 
  * EMBED INSTRUCTIONS:
  * Add this line to your HTML before </body>:
- * <script src="http://localhost:5000/chatbot/{chatbot_id}/widget.js"><\/script>
+ * <script src="{os.environ.get('APP_URL', 'http://localhost:5000')}/chatbot/{chatbot_id}/widget.js"><\/script>
  */
 
 (function() {{
   'use strict';
   
   const CHATBOT_ID = '{chatbot_id}';
-  const API_BASE = 'http://localhost:5000';
+  const API_BASE = '{os.environ.get("APP_URL", "http://localhost:5000")}';
   const PRIMARY_COLOR = '{primary}';
   const PRIMARY_DARK = '{primary_dark}';
   const BOT_NAME = '{brand["bot_name"]}';
@@ -994,4 +994,4 @@ init();
 """
 
     def _generate_embed_code(self, chatbot_id: str) -> str:
-        return f'<script src="http://localhost:5000/chatbot/{chatbot_id}/widget.js"></script>'
+        return f'<script src="{os.environ.get("APP_URL", "http://localhost:5000")}/chatbot/{chatbot_id}/widget.js"></script>'
